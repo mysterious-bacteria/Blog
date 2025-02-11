@@ -1,14 +1,390 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://shenmijun.us.kg/css/page.css">
     <title>神密菌的博客</title>
+    <link rel="shortcut icon" href="https://shenmijun.us.kg/favicon.ico">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --background-color: #ffffff;
+            --text-color: #333;
+            --article-bg: #ffffff;
+            --sidebar-bg: #ffffff;
+            --navbar-bg: #ffffff;
+            --footer-bg: #2c3e50;
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #ffffff;
+            --secondary-color: #3498db;
+            --background-color: #1a1a1a;
+            --text-color: #ffffff;
+            --article-bg: #2d2d2d;
+            --sidebar-bg: #2d2d2d;
+            --navbar-bg: #333333;
+            --footer-bg: #404040;
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* 导航栏样式 */
+        .navbar {
+            background-color: var(--navbar-bg);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .navbar-brand {
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.5rem;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--secondary-color);
+        }
+
+        /* 主内容区域 */
+        .container {
+            max-width: 1200px;
+            margin: 60px auto 2rem;
+            padding: 0 2rem;
+        }
+
+        /* 文章列表 */
+        .article-list {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        .article-card {
+            background-color: var(--article-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s;
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .article-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .article-title {
+            color: var(--primary-color);
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .article-meta {
+            color: rgba(var(--primary-color), 0.7);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .article-content {
+            color: var(--text-color);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            background-color: var(--secondary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            gap: 0.5rem;
+        }
+
+        .read-more:hover {
+            background-color: #2980b9;
+        }
+
+        /* 侧边栏 */
+        .sidebar {
+            background-color: var(--sidebar-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        .sidebar h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .sidebar .search-box {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .sidebar input {
+            flex: 1;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .sidebar button {
+            padding: 0.5rem 1rem;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar button:hover {
+            background-color: #2980b9;
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .sidebar a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* 页脚 */
+        .footer {
+            background-color: var(--footer-bg);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .footer p {
+            margin: 0;
+        }
+
+        .footer .social-links {
+            margin-bottom: 1rem;
+        }
+
+        .footer .social-links a {
+            color: white;
+            margin: 0 0.5rem;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .footer .social-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* 夜晚模式切换按钮 */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 0.5rem 1rem;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            z-index: 1001;
+        }
+
+        .theme-toggle:hover {
+            background-color: #2980b9;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .container {
+                padding: 0 1rem;
+                margin-top: 50px;
+            }
+
+            .article-list {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                margin-top: 2rem;
+            }
+        }
+
+        /* 动画效果 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .article-card {
+            animation: fadeIn 0.5s ease-out;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <p><a href="https://space.bilibili.com/1796088972">Bilibili</a></p>
-    </header>
+    <!-- 夜晚模式切换按钮 -->
+    <button class="theme-toggle" onclick="toggleTheme()">夜晚模式</button>
+
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <a href="#" class="navbar-brand">神密菌的博客</a>
+        <div class="nav-links">
+            <a href="https://shenmijun.us.kg" class="nav-link">首页</a>
+            <a href="https://space.bilibili.com/1796088972" class="nav-link">Bilibili</a>
+            <a href="https://github.com/mysterious-bacteria/" class="nav-link">仓库</a>
+        </div>
+    </nav>
+
+    <!-- 主内容区域 -->
+    <div class="container">
+        <!-- 文章列表 -->
+        <div class="article-list">
+            <!-- 文章卡片 1 -->
+            <div class="article-card">
+                <h2 class="article-title">欢迎来到我的博客❤️</h2>
+                <div class="article-meta">
+                    <span>作者：神密菌</span> • 
+                    <span>2025-2-11</span> • 
+                    <span>分类：生活</span>
+                </div>
+                <div class="article-content">
+                    欢迎访问我的个人博客！这是一个分享技术、生活和思考的平台。我会定期更新一些有趣的文章，希望你能在这里找到有价值的内容。
+                </div>
+                <a href="./blogs/2025-02-11.html" class="read-more">
+                    <span>阅读更多</span>
+                    <i class="fas fa-angle-double-right"></i>
+                </a>
+            </div>
+
+
+            <!-- 侧边栏 -->
+            <div class="sidebar">
+
+                <h3>最新文章</h3>
+                <ul>
+                    <li><a href="./blogs/2025-02-11.html">欢迎来到我的博客</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="social-links">
+            <a href="https://space.bilibili.com/1796088972">Bilibili</a>
+            <a href="https://github.com/mysterious-bacteria/">Github</a>
+        </div>
+
+    </footer>
+
+    <script>
+        // 添加滚动效果
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = --navbar-bg;
+                navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.05)';
+            } else {
+                navbar.style.background = --navbar-bg;
+                navbar.style.boxShadow = 'none';
+            }
+        });
+
+        // 添加动态加载效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const articleCards = document.querySelectorAll('.article-card');
+            articleCards.forEach(card => {
+                card.style.opacity = 0;
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.opacity = 1;
+                    card.style.transform = 'translateY(0)';
+                }, 500);
+            });
+        });
+
+        // 夜晚模式切换功能
+        function toggleTheme() {
+            const body = document.body;
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                document.querySelector('.theme-toggle').textContent = '夜晚模式';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                document.querySelector('.theme-toggle').textContent = '白天模式';
+            }
+        }
+    </script>
 </body>
 </html>
