@@ -2,6 +2,7 @@
 :root {
     --primary-color: #2c3e50;
     --secondary-color: #3498db;
+    --accent-color: #f1c40f;
     --background-color: #ffffff;
     --text-color: #333;
     --article-bg: #ffffff;
@@ -11,6 +12,7 @@
 [data-theme="dark"] {
     --primary-color: #ffffff;
     --secondary-color: #3498db;
+    --accent-color: #f1c40f;
     --background-color: #1a1a1a;
     --text-color: #ffffff;
     --article-bg: #2d2d2d;
@@ -29,6 +31,7 @@ body {
     color: var(--text-color);
     line-height: 1.6;
     transition: background-color 0.3s, color 0.3s;
+    padding-bottom: 4rem; /* 增加底部间距 */
 }
 
 /* 主内容区域 */
@@ -44,6 +47,11 @@ body {
     border-radius: 15px;
     padding: 2rem;
     box-shadow: var(--card-shadow);
+    transition: box-shadow 0.3s;
+}
+
+.article-content:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
 }
 
 .article-title {
@@ -85,6 +93,11 @@ body {
     border-radius: 10px;
     box-shadow: var(--card-shadow);
     object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.article-content img:hover {
+    transform: scale(1.05);
 }
 
 /* 标签 */
@@ -118,6 +131,12 @@ body {
     background-color: var(--article-bg);
     padding: 2rem;
     border-radius: 15px;
+    box-shadow: var(--card-shadow);
+    transition: box-shadow 0.3s;
+}
+
+.related-articles:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
 }
 
 .related-articles h3 {
@@ -125,6 +144,7 @@ body {
     margin-bottom: 1.5rem;
     font-size: 1.5rem;
     font-weight: 600;
+    text-align: center;
 }
 
 .related-article {
@@ -134,7 +154,7 @@ body {
     padding: 1rem;
     background-color: rgba(0, 0, 0, 0.05);
     border-radius: 5px;
-    transition: transform 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s;
     cursor: pointer;
 }
 
@@ -166,24 +186,6 @@ body {
     font-size: 0.9rem;
 }
 
-/* 分享按钮 */
-.share-buttons {
-    margin-top: 2rem;
-    text-align: center;
-}
-
-.share-buttons a {
-    color: var(--primary-color);
-    margin: 0 1rem;
-    font-size: 1.5rem;
-    transition: color 0.3s;
-    text-decoration: none;
-}
-
-.share-buttons a:hover {
-    color: var(--secondary-color);
-}
-
 /* 响应式设计 */
 @media (max-width: 768px) {
     .container {
@@ -199,6 +201,14 @@ body {
         width: 80px;
         height: 80px;
     }
+
+    .article-content {
+        padding: 1.5rem;
+    }
+
+    .related-articles {
+        padding: 1.5rem;
+    }
 }
 
 /* 高亮代码块（可选） */
@@ -207,6 +217,7 @@ body {
     padding: 1rem;
     border-radius: 5px;
     margin: 1rem 0;
+    overflow-x: auto;
 }
 
 .highlight code {
